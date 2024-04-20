@@ -1,3 +1,5 @@
+export { initalRender, renderGallery };
+
 const initalRender = () => {
   const form = document.createElement('form');
   form.classList.add('search-form');
@@ -9,48 +11,61 @@ const initalRender = () => {
   button.type = 'submit';
   button.classList.add('search-button');
   button.textContent = 'Search';
+  const nextButton = document.createElement('button');
+  nextButton.textContent = 'Load more';
+  nextButton.classList.add('search-button');
+  nextButton.classList.add('next-button');
+  nextButton.classList.add('is-hidden');
+  nextButton.type = 'button';
   const list = document.createElement('ul');
   list.classList.add('gallery-list');
   form.append(input, button);
-  document.body.append(form, list);
-};
-
-const renderGalleryItem = image => {
-  const galleryItem = document.createElement('li');
-  galleryItem.classList.add('gallery-item');
-
-  const link = document.createElement('a');
-  link.classList.add('gallery-link');
-  link.href = image.largeImageURL;
-
-  const imageElement = document.createElement('img');
-  imageElement.classList.add('gallery-image');
-  imageElement.src = image.webformatURL;
-  imageElement.alt = image.tags;
-
-  const description = document.createElement('div');
-  description.classList.add('image-description');
-  description.innerHTML = `
-    <p>Likes ${image.likes}</p>
-    <p>Views ${image.views}</p>
-    <p>Comments ${image.comments}</p>
-    <p>Downloads ${image.downloads}</p>
-  `;
-
-  link.appendChild(imageElement);
-  galleryItem.append(link, description);
-
-  return galleryItem;
+  document.body.prepend(form, list, nextButton);
 };
 
 const renderGallery = imagesGallery => {
-  const galleryList = document.querySelector('.gallery-list');
-  galleryList.innerHTML = '';
+  const result = imagesGallery.map(img => {
+    const item = document.createElement('li');
+    item.classList.add('gallery-item');
 
-  const galleryItems = imagesGallery.map(renderGalleryItem);
-  galleryItems.forEach(item => {
-    galleryList.appendChild(item);
+    const link = document.createElement('a');
+    link.classList.add('gallery-link');
+    link.href = img.largeImageURL;
+
+    const image = document.createElement('img');
+    image.classList.add('gallery-image');
+    image.src = img.webformatURL;
+    image.alt = img.tags;
+    image.width = '360';
+
+    const descItems = {
+      Likes: img.likes,
+      Views: img.views,
+      Comments: img.comments,
+      Downloads: img.downloads,
+    };
+
+    const descList = document.createElement('ul');
+    descList.classList.add('gallery-desc-list');
+    for (let item in descItems) {
+      const descItem = document.createElement('li');
+      descItem.classList.add('gallery-desc-item');
+
+      const descTtl = document.createElement('p');
+      descTtl.classList.add('gallery-desc-ttl');
+      descTtl.textContent = item;
+
+      const descText = document.createElement('p');
+      descText.classList.add('gallery-desc-text');
+      descText.textContent = descItems[item];
+
+      descItem.append(descTtl, descText);
+      descList.append(descItem);
+    }
+
+    link.append(image);
+    item.append(link, descList);
+    return item;
   });
+  return result;
 };
-
-export { renderGalleryItem };

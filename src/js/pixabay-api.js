@@ -1,23 +1,22 @@
+export { fetchSearch };
 import axios from 'axios';
+const API = '43312748-d2770da7ff63c643db495a6a3';
 
-const fetchImages = async (imageName, page = 1, perPage = 15) => {
+const fetchSearch = async (imageName, page) => {
   try {
-    const response = await axios.get('https://pixabay.com/api/', {
+    const result = await axios.get(`https://pixabay.com/api/`, {
       params: {
-        key: '43257853-194068c59ee252fa44b7d008e',
+        key: API,
         q: imageName,
         image_type: 'photo',
         orientation: 'horizontal',
         safesearch: true,
-        page,
-        per_page: perPage,
+        page: page,
+        per_page: 15,
       },
     });
-    return response.data.hits;
+    return result.data;
   } catch (error) {
-    console.error('Error fetching images:', error);
-    throw new Error('Failed to fetch images. Please try again later');
+    console.log(error);
   }
 };
-
-export { fetchImages };
