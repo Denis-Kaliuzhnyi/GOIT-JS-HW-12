@@ -27,7 +27,7 @@ form.addEventListener('submit', async event => {
     if (globalImageName === '') {
       iziToast.show({
         title: 'Error',
-        message: 'Invalid search request value',
+        message: 'Please enter a search query',
         backgroundColor: 'red',
         theme: 'dark',
         color: 'red',
@@ -42,8 +42,8 @@ form.addEventListener('submit', async event => {
 
     if (hits.length === 0) {
       iziToast.show({
-        title: 'Error',
-        message: 'Unfortunately no pictures found by your request :(',
+        title: 'Warning',
+        message: 'Sorry, there are no images matching your search query. Please try again!',
         backgroundColor: 'red',
         theme: 'dark',
         color: 'red',

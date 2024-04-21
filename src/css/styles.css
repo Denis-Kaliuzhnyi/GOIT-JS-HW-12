@@ -1,3 +1,4 @@
+@import 'izitoast/dist/css/iziToast.min.css';
 
 :root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
@@ -120,7 +121,6 @@ li {
   color: #2e2f42;
 }
 
-/* #region loader */
 .loader {
   margin: 12px;
   position: relative;
@@ -160,9 +160,6 @@ li {
   }
 }
 
-/* #endregion loader */
-
-/* #region scroll-up */
 .scrollbutton {
   display: none;
   position: fixed;
@@ -184,4 +181,3 @@ li {
   background-color: pink;
   transform: scale(1.2);
 }
-/* #endregion scroll-up */
